@@ -48,7 +48,11 @@ def display_word(word, guesses):
     and d, this function should return 'B _ _ B A _ D'.
     """
     # TODO
-    pass
+    list_word = list(word)
+    for idx, c in enumerate(list_word):
+        if c not in guesses:
+            list_word[idx] = '_'
+    return ' '.join(list_word).upper()
 
 
 def is_word_complete(word, guesses):
