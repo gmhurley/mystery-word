@@ -1,3 +1,5 @@
+import random
+
 
 def easy_words(word_list):
     """
@@ -31,7 +33,7 @@ def random_word(word_list):
     Returns a random word from the word list.
     """
     # TODO
-    pass
+    return random.choice(word_list)
 
 
 def display_word(word, guesses):
