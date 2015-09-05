@@ -3,8 +3,6 @@ Mystery word game vs the computer
 
 The computer selects a word at random from the list of words in the file /usr/share/dict/words.
 
-The game must be interactive:
-
 Chose level of difficulty at the beginning of the program. Easy mode only has words of 4-6 characters; normal mode only has words of 6-8 characters; hard mode only has words of 8+ characters.
 
 At the start of the game, you'll be told how many letters the computer's word contains.
