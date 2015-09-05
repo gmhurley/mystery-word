@@ -1,3 +1,4 @@
+import re
 import random
 
 
@@ -61,7 +62,78 @@ def is_word_complete(word, guesses):
     otherwise returns False.
     """
     # TODO
-    pass
+    for letter in word:
+        if letter not in guesses:
+            return False
+    return True
+
+
+def get_words():
+    words = open('/usr/share/dict/words').read()
+    words = re.sub(r'[^A-Za-z\s]', '', words).lower().split()
+    return words
+
+
+def get_word(level):
+    word = ''
+    if level == '1':
+        # Easy
+        word = random_word(easy_words(get_words()))
+    elif level == '2':
+        # Medium
+        word = random_word(medium_words(get_words()))
+    else:
+        word = random_word(hard_words(get_words()))
+
+    return word
+
+def play_again():
+    while True:
+        answer = input("Would you like to play again? y or n: ").lower()
+        if answer not in ('y', 'n'):
+            continue
+        if answer == 'y':
+            main()
+        print("Later gater...")
+        exit()
+
+
+def play(chances, word):
+    while chances > 0:
+        guesses = []
+        while True:
+            # Check chances
+            if chances > 1:
+                print("\nYou've got {} chances left.\n".format(chances))
+                if chances < 8:
+                    print("So far, you've guessed: {}\n".format(', '.join(guesses)))
+            elif chances == 1:
+                print("\nLast chance!\n")
+            else:
+                print("\nHa... you lost! Your dreams of dominating Wheel of Fortune have been dashed.")
+                print("\nThe word was: {}\n\n".format(word))
+                play_again()
+
+            # Get guess and validate
+            guess = input("Please guess a letter: ")
+            if len(guess) > 1 or guess.isdigit() == True:
+                print("\nOops... {} is not letter.\n".format(guess))
+                continue
+            if guess in guesses:
+                print("\nOops... you've already guessed {}".format(guess))
+                continue 
+            guesses.append(guess)
+
+            # Check guess against word
+            if guess in word:
+                print("\nNice guess.\n")
+                if is_word_complete(word, guesses):
+                    print("hmmm... looks like you've won. Congratulations I reckon.\n\n")
+                    play_again()
+            else:
+                print("\nTry again.\n")
+                chances -= 1
+            print(display_word(word, guesses))
 
 
 def main():
@@ -79,7 +151,26 @@ def main():
     5. Giving the user the option to play again
     """
     # TODO
+    divider = "-" * 35
+    print("\nWelcome to the Mystery Word game.")
+    print(divider)
+    level = '0'
+    while level not in ('1', '2', '3', '4'):
+        level = input("""Please select a level:
 
+1. Easy
+2. Medium
+3. Hard
+----------
+4. Quit
+
+Level: """)
+    if level == '4':
+        exit("\nYa'll come back now...")
+    print(divider)
+    word = get_word(level)
+    print("Great! I've chosen a {} digit word.".format(len(word)))
+    play(8, word)
 
 if __name__ == '__main__':
     main()
