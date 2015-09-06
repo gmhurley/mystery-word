@@ -28,6 +28,7 @@ def hard_words(word_list):
     # TODO
     return [word for word in word_list if 7 < len(word)]
 
+
 def cheat_words(word_list, length):
     """
     Returns a filtered version of the word list with all the words in
@@ -94,6 +95,7 @@ def get_word(level):
 
     return word
 
+
 def play_again():
     while True:
         answer = input("Would you like to play again? y or n: ").lower()
@@ -136,7 +138,8 @@ def check_guess(guess, word, guesses, chances):
     if guess in word:
         print("\nNice guess.\n")
         if is_word_complete(word, guesses):
-            print("hmmm... looks like you've won. Congratulations I reckon.\n\n")
+            print("hmmm... looks like you've won. Congratulations I reckon.\n")
+            print("The word was {}.\n".format(word))
             play_again()
     else:
         print("\nTry again.\n")
@@ -162,9 +165,19 @@ def extreme(chances, word):
     while chances > 0:
         while True:
             guesses = []
-
-
-
+            while True:
+                check_chances(chances, guesses, word)
+                guess = get_guess(guesses)
+                if not guess:
+                    continue
+                guesses.append(guess)
+                if guess in word:
+                    for potential_word in available_words[:]:
+                        if guess in potential_word:
+                            available_words.remove(potential_word)
+                    if len(available_words) > 1:
+                        word = random.choice(available_words)
+                chances = check_guess(guess, word, guesses, chances)
 
 
 def main():
