@@ -1,5 +1,5 @@
 import unittest
-from mystery_word import *
+from evil_mystery_word import *
 
 word_list = ["bird", "calf", "river", "stream", "kneecap",  "cookbook",
              "language", "sneaker", "algorithm", "integration", "brain"]
@@ -32,7 +32,6 @@ class TestMysteryWord(unittest.TestCase):
         self.assertEqual(display_word(word, ["i", "g"]), "I _ _ _ G _ _ _ I _ _")
         self.assertEqual(display_word(word, ["i", "n", "z"]), "I N _ _ _ _ _ _ I _ N")
 
-
     def test_is_word_complete(self):
         word = "river"
         self.assertFalse(is_word_complete(word, []))
@@ -40,6 +39,18 @@ class TestMysteryWord(unittest.TestCase):
         self.assertFalse(is_word_complete(word, ["r", "e"]))
         self.assertFalse(is_word_complete(word, ["r", "e", "z"]))
         self.assertTrue(is_word_complete(word, ["r", "e", "v", "i"]))
+
+    def test_cheat_words(self):
+        """Test that the lenth of each word in the list is the same."""
+        length = random.choice(range(5, 10))
+        words = cheat_words(cheat_words, get_words())
+        # http://nose.readthedocs.org/en/latest/writing_tests.html#test-generators
+        for word in words:
+            yield check_cheat, len(word), length
+
+    def check_cheat(self, word_len, length):
+        assert word_len == length
+
 
 if __name__ == '__main__':
     unittest.main()
