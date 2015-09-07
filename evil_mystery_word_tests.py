@@ -1,4 +1,3 @@
-import nose
 import unittest
 from evil_mystery_word import *
 
@@ -49,7 +48,7 @@ class TestMysteryWord(unittest.TestCase):
         for word in words:
             yield check_cheat, len(word), length
 
-    def check_cheat(word_len, length):
+    def check_cheat(self, word_len, length):
         assert word_len == length
 
 

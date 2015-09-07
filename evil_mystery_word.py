@@ -175,8 +175,8 @@ def extreme(chances, word):
                     for potential_word in available_words[:]:
                         if guess in potential_word:
                             available_words.remove(potential_word)
-                    if len(available_words) > 1:
-                        word = random.choice(available_words)
+                if len(available_words) > 1:
+                    word = random.choice(available_words)
                 chances = check_guess(guess, word, guesses, chances)
 
 
