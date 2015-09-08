@@ -8,7 +8,7 @@ def easy_words(word_list):
     4-6 characters.
     """
     # TODO
-    return [word for word in word_list if 2 < len(word) < 7]
+    return [word for word in word_list if 3 < len(word) < 7]
 
 
 def medium_words(word_list):
